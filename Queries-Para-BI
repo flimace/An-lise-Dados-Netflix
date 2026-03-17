@@ -1,0 +1,38 @@
+-- Descobrir qual gênero é mais comum no catálogo
+SELECT TOP 10 listed_in, 
+COUNT(*) AS total_por_genero 
+FROM netflix_limpo4
+GROUP BY listed_in
+ORDER BY total_por_genero DESC;
+
+
+-- Definir o padrão de duração das séries e filmes.
+
+SELECT title, duration 
+from netflix_limpo4 
+WHERE duration LIKE '%min%'
+
+SELECT title, duration 
+from netflix_limpo4 
+WHERE duration LIKE '%Seasons%'
+
+-- Qual diretor tem mais obras no catalogo
+
+SELECT director, COUNT(*) AS total_obras FROM netflix_limpo4
+WHERE director <> 'Não Informado'
+GROUP BY director
+ORDER BY director DESC;
+
+--  Buscando gênero por descrição
+SELECT title, description FROM netflix_limpo4
+WHERE description LIKE '%Documentary%'
+
+-- Todos os generos com mais de 100 obras no catalogo
+SELECT listed_in, COUNT(*) AS total_titulos
+FROM netflix_limpo4
+GROUP BY listed_in
+HAVING COUNT(*) > 100
+ORDER BY total_titulos DESC;
+
+
+
