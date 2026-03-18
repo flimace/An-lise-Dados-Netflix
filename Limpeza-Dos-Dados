@@ -6,16 +6,11 @@ df = pd.read_csv('netflix_titles.csv')
 df_limpo = df.dropna(subset=['title'])
 
 # preencher valores nulos como "Não Informado" para colunas de director, cast e country pois são as que mais tem valor nulo!
-df = df.fillna({'country': 'Não Informado'})
-df = df.fillna({'director': 'Não Informado'})
-df = df.fillna({'cast': 'Não Informado'})
-df = df.fillna({'duration': 'Não Informado'})
-df = df.fillna({'rating': 'Não Informado'})
-df = df.fillna({'description': 'Não Informado'})
-df = df.fillna({'listed_in': 'Não Informado'})
-df = df.fillna({'date_added': 'Não Informado'})
-df = df.fillna({'release_year': 'Não Informado'})
 
+colunas_para_preencher = ['director', 'country', 'cast', 'duration', 'rating', 'description', 'listed_in', 'date_added', 'release_year']
+for coluna in colunas_para_preencher:
+    df = df.fillna({coluna: 'Não Informado'})
+    
 # Garante que NADA na coluna duration saia vazio
 
 # dividir os valores da coluna por virgula e espaço pra criar listas
@@ -23,12 +18,11 @@ df = df.fillna({'release_year': 'Não Informado'})
 df_limpo = df['country'].str.split(',').str[0]
 df_limpo = df['country'].str.strip()
 
-print(df_limpo)
-
 # passando o arquivo para o sql!! ^^
-df.to_csv('netflix_limpo4.csv', index=False, encoding='utf-8')
+df.to_csv('netflix_limpoNOVO.csv', index=False, encoding='utf-8')
 
 # # index=False: Não salva a coluna de numeração do Pandas (evita erro no SQL)
 # # encoding='utf-8': Garante que acentos (ex: "Não Informado") não fiquem ilegíveis
 
-print("Arquivo 'netflix_limpo.csv' gerado com sucesso!")
+print("Arquivo 'netflix_limpoNOVO.csv' gerado com sucesso!")
+
